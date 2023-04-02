@@ -29,8 +29,12 @@ def xla():
             
             # Hiển thị hai hình ảnh cùng trên một hàng
             percent = 50
-            new_width = int(img.shape[1] * percent / 100)
-            new_height = int(img.shape[0] * percent / 100)
+            new_width = int(img.shape[1])
+            new_height = int(img.shape[0])
+            if (img.shape[0] > 1000 and img.shape[1] > 1000):
+                new_width = int(img.shape[1] * percent / 100)
+                new_height = int(img.shape[0] * percent / 100)
+            
             erosion = cv2.resize(erosion,(new_width, new_height),interpolation=cv2.INTER_AREA)
             dilation = cv2.resize(dilation,(new_width, new_height),interpolation=cv2.INTER_AREA)
             col1, col2 = st.columns(2)
