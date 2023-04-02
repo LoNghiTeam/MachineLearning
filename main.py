@@ -1,11 +1,20 @@
-# from win32com.client import Dispatch
 from keras.models import load_model
 import cv2
+import csv
 import os
+import random
+from matplotlib import pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 from PIL import Image, ImageEnhance
 import numpy as np
 import streamlit as st
 import warnings
+import pandas as pd
+import hqtt
+import xla
+import hoi_quy_logistic as hql
 warnings.filterwarnings('ignore')
 
 def preprocessing(img):
@@ -25,37 +34,26 @@ def preprocessing(img):
 
 
 def main():
-    st.title("Handwritten Digit Classification Web App")
+    st.title("Dự án học máy")
     st.set_option('deprecation.showfileUploaderEncoding', False)
-    activities = ["Program"]
-    choices = st.sidebar.selectbox("Select Option", activities)
-
-    if choices == "Program":
-        st.subheader("Kindly upload file below")
-        img_file = st.file_uploader("Upload File", type=['png', 'jpg', 'jpeg'])
-        if img_file is not None:
-            up_img = Image.open(img_file)
-            st.image(up_img)
-        if st.button("Predict Now"):
-            try:
-                img = np.array(up_img)
-                img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-                # Phần tử cấu trúc
-                kernel = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]], dtype=np.uint8)
-                # Thực hiện erosion và dilation
-                erosion = cv2.erode(img, kernel, iterations=1)
-                dilation = cv2.dilate(img, kernel, iterations=1)
-                st.title("erosion")
-                st.image(erosion)
-                st.title("dilation")
-                st.image(dilation)
-            except Exception as e:
-                st.error("Connection Error")
-
-    # elif choices == 'Credits':
-    #     st.write(
-    #         "Application Developed by Abhishek Tripathi, Aman Verma, Manvendra Pratap Singh.")
-
-
+    activities = {
+        1: "Hình thái học",
+        2: "Hồi quy tuyến tính",
+        3: "Hồi quy logistic",
+    }
+    choices = st.sidebar.selectbox("Select Option", list(activities.items()), format_func=lambda x: x[1])
+    #Xử lý choice 1:
+    if choices[0] == 1:
+        st.subheader(choices[1])
+        xla.xla()
+    #Xử lý choice 2:
+    elif choices[0] == 2:
+        st.subheader(choices[1])
+        hqtt.rendFile()
+        hqtt.HQTT()
+    #Xử lý choice 3:
+    elif choices[0] == 3:
+        st.subheader(choices[1])
+        hql.process()
 if __name__ == '__main__':
     main()
