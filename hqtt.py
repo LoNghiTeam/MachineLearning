@@ -53,8 +53,8 @@ def HQTT():
         data = pd.read_csv('data.csv')
 
         # Chọn biến đầu vào và đầu ra
-        x_col = st.selectbox("Chọn biến đầu vào", list(data.columns[0]))
-        y_col = st.selectbox("Chọn biến đầu ra", list(data.columns[0]))
+        x_col = st.selectbox("Chọn biến đầu vào", list(data.columns))
+        y_col = st.selectbox("Chọn biến đầu ra", list(data.columns))
 
         # Tách dữ liệu thành 2 tập train set và test set
         X_train, X_test, y_train, y_test = train_test_split(data[x_col], data[y_col], test_size=0.2)

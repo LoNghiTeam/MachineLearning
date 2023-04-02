@@ -1,10 +1,8 @@
-opencv-contrib-python-headless==4.5.5.62
-opencv_python_headless==4.4.0.46
+opencv_python_headless==4.5.2.54
 tensorflow==2.7.0
 keras==2.7.0
 matplotlib==3.5.2
 numpy==1.23.5
-opencv_python==4.7.0.68
 pandas==1.5.3
 Pillow==9.5.0
 scikit_learn==1.2.2
