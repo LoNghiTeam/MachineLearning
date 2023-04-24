@@ -1,18 +1,10 @@
-from keras.models import load_model
 import cv2
-import csv
 import os
-import random
-from matplotlib import pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
-from PIL import Image, ImageEnhance
+import pytesseract
+from PIL import Image
 import numpy as np
 import streamlit as st
-import warnings
-import pandas as pd
-warnings.filterwarnings('ignore')
+from pytesseract import image_to_string
 
 def preprocessing(img):
     try:
@@ -48,8 +40,10 @@ def main():
         if st.button("Xử lý ngay"):
             try:
                 img = np.array(up_img)
+                text = pytesseract.image_to_string(img)
+                st.write(text)
             except Exception as e:
-                st.error("Connection Error")
+                st.error(e)
     elif choices[0] == 2:
         st.subheader(choices[1])
         img_file = st.file_uploader("Upload File", type=['png', 'jpg', 'jpeg'])
